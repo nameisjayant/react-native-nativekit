@@ -24,7 +24,7 @@ export function NativeKitButton({
       // Native views can't report an intrinsic size to Fabric, so give the button a
       // sensible default frame; any width/height in `style` takes precedence.
       style={[styles.button, { height: HEIGHTS[size] }, style]}
-      onPress={onPress ? () => onPress() : undefined}
+      onButtonPress={onPress ? () => onPress() : undefined}
     />
   );
 }

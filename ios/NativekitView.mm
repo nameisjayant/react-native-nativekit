@@ -39,7 +39,7 @@ using namespace facebook::react;
       __typeof(self) strongSelf = weakSelf;
       if (strongSelf && strongSelf->_eventEmitter) {
         std::static_pointer_cast<const NativekitViewEventEmitter>(strongSelf->_eventEmitter)
-            ->onPress(NativekitViewEventEmitter::OnPress{});
+            ->onButtonPress(NativekitViewEventEmitter::OnButtonPress{});
       }
     };
 

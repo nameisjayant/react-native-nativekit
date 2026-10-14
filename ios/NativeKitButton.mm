@@ -46,7 +46,7 @@ static NSString *NativeKitButtonString(const std::string &value)
       __typeof(self) strongSelf = weakSelf;
       if (strongSelf && strongSelf->_eventEmitter) {
         std::static_pointer_cast<const NativeKitButtonEventEmitter>(strongSelf->_eventEmitter)
-            ->onPress(NativeKitButtonEventEmitter::OnPress{});
+            ->onButtonPress(NativeKitButtonEventEmitter::OnButtonPress{});
       }
     };
 

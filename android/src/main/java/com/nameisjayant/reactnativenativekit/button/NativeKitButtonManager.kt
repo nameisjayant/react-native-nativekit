@@ -71,7 +71,7 @@ class NativeKitButtonManager : SimpleViewManager<NativeKitButtonView>(),
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> =
-    mapOf(NativeKitButtonView.EVENT_PRESS to mapOf("registrationName" to "onPress"))
+    mapOf(NativeKitButtonView.EVENT_PRESS to mapOf("registrationName" to "onButtonPress"))
 
   companion object {
     const val NAME = "NativeKitButton"

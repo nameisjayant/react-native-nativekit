@@ -59,6 +59,6 @@ class NativeKitButtonView(context: Context) : FrameLayout(context) {
   }
 
   companion object {
-    const val EVENT_PRESS = "topPress"
+    const val EVENT_PRESS = "topButtonPress"
   }
 }
