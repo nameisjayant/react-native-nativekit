@@ -2,7 +2,9 @@ buildscript {
   ext.ReactNativeNativekit = [
     kotlinVersion: "2.0.21",
     minSdkVersion: 24,
-    compileSdkVersion: 36
+    compileSdkVersion: 36,
+    // Compose 1.12+ (BOM 2026.08+) needs AGP 9.1 / compileSdk 37, newer than RN 0.86 ships.
+    composeBomVersion: "2026.06.01"
   ]
 
   ext.getExtOrDefault = { prop ->
@@ -22,6 +24,8 @@ buildscript {
     classpath "com.android.tools.build:gradle:8.7.2"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+    // Compose compiler ships with Kotlin 2.x and must match the app's Kotlin version.
+    classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
   }
 }
 
@@ -31,6 +35,8 @@ apply plugin: "com.android.library"
 if (project.extensions.findByName("kotlin") == null) {
   apply plugin: "kotlin-android"
 }
+
+apply plugin: "org.jetbrains.kotlin.plugin.compose"
 
 
 apply plugin: "com.facebook.react"
@@ -48,8 +54,19 @@ android {
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
   }
+
+  buildFeatures {
+    compose true
+  }
 }
 
 dependencies {
   implementation "com.facebook.react:react-android"
+
+  implementation platform("androidx.compose:compose-bom:${getExtOrDefault('composeBomVersion')}")
+  implementation "androidx.compose.ui:ui"
+  implementation "androidx.compose.foundation:foundation"
+  implementation "androidx.compose.material3:material3"
+  implementation "androidx.compose.ui:ui-tooling-preview"
+  debugImplementation "androidx.compose.ui:ui-tooling"
 }

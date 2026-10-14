@@ -5,7 +5,8 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import java.util.HashMap
+import com.facebook.react.uimanager.ViewManager
+import com.nameisjayant.reactnativenativekit.view.NativekitViewManager
 
 class ReactNativeNativekitPackage : BaseReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
@@ -28,4 +29,7 @@ class ReactNativeNativekitPackage : BaseReactPackage() {
       )
     )
   }
+
+  override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> =
+    listOf(NativekitViewManager())
 }

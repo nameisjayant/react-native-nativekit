@@ -107,10 +107,15 @@
   },
   "codegenConfig": {
     "name": "ReactNativeNativekitSpec",
-    "type": "modules",
+    "type": "all",
     "jsSrcsDir": "src",
     "android": {
       "javaPackageName": "com.nameisjayant.reactnativenativekit"
+    },
+    "ios": {
+      "componentProvider": {
+        "NativekitView": "NativekitView"
+      }
     }
   },
   "prettier": {
