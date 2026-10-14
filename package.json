@@ -114,7 +114,8 @@
     },
     "ios": {
       "componentProvider": {
-        "NativekitView": "NativekitView"
+        "NativekitView": "NativekitView",
+        "NativeKitButton": "NativeKitButton"
       }
     }
   },
