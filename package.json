@@ -33,6 +33,11 @@
   ],
   "scripts": {
     "example": "yarn workspace @nameisjayant/react-native-nativekit-example",
+    "start": "yarn example start",
+    "android": "yarn example android",
+    "ios": "yarn example ios",
+    "ios:device": "yarn example ios --device",
+    "run:all": "yarn example android && yarn example ios",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
     "typecheck": "tsc",
