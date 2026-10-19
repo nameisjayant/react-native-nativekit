@@ -7,3 +7,11 @@ export type {
   NativeKitButtonSize,
   NativeKitButtonFontWeight,
 } from './NativeKitButton.types';
+export { NativeKitBottomSheet } from './NativeKitBottomSheet';
+export type {
+  NativeKitBottomSheetProps,
+  NativeKitBottomSheetVariant,
+  NativeKitBottomSheetState,
+  NativeKitBottomSheetAction,
+  NativeKitBottomSheetActionRole,
+} from './NativeKitBottomSheet.types';

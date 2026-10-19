@@ -3,7 +3,10 @@ import { ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import {
   multiply,
   NativekitView,
+  NativeKitBottomSheet,
   NativeKitButton,
+  type NativeKitBottomSheetAction,
+  type NativeKitBottomSheetVariant,
   type NativeKitButtonSize,
   type NativeKitButtonVariant,
 } from '@nameisjayant/react-native-nativekit';
@@ -20,11 +23,31 @@ const VARIANTS: NativeKitButtonVariant[] = [
 ];
 const SIZES: NativeKitButtonSize[] = ['small', 'medium', 'large'];
 
+const SHEET_VARIANTS: NativeKitBottomSheetVariant[] = [
+  'modal',
+  'halfExpanded',
+  'expanded',
+  'fullScreen',
+  'persistent',
+  'expandable',
+];
+
+const SHEET_ACTIONS: NativeKitBottomSheetAction[] = [
+  { title: 'Share' },
+  { title: 'Duplicate' },
+  { title: 'Archive', disabled: true },
+  { title: 'Delete', role: 'destructive' },
+  { title: 'Cancel', role: 'cancel' },
+];
+
 export default function App() {
   const [presses, setPresses] = useState(0);
   const [lastPressed, setLastPressed] = useState('none');
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [sheet, setSheet] = useState<NativeKitBottomSheetVariant | null>(null);
+  const [sheetState, setSheetState] = useState('hidden');
+  const closeSheet = () => setSheet(null);
 
   const press = (name: string) => () => setLastPressed(name);
 
@@ -137,6 +160,59 @@ export default function App() {
           onPress={submit}
         />
       </Section>
+
+      <Section title="Bottom sheets">
+        <Text>Sheet state: {sheetState}</Text>
+        {SHEET_VARIANTS.map((variant) => (
+          <NativeKitButton
+            key={variant}
+            title={`Open ${variant}`}
+            variant="tonal"
+            onPress={() => setSheet(variant)}
+          />
+        ))}
+        <NativeKitButton
+          title="Open actionSheet"
+          variant="tonal"
+          onPress={() => setSheet('actionSheet')}
+        />
+      </Section>
+
+      {SHEET_VARIANTS.map((variant) => (
+        <NativeKitBottomSheet
+          key={variant}
+          visible={sheet === variant}
+          variant={variant}
+          onDismiss={closeSheet}
+          onStateChange={setSheetState}
+          style={styles.sheetContent}
+        >
+          <Text style={styles.sheetTitle}>{variant} sheet</Text>
+          <Text>
+            Rendered by Jetpack Compose on Android and UIKit sheets on iOS, with
+            React Native content inside.
+          </Text>
+          <NativeKitButton
+            title="Native button in a sheet"
+            onPress={press(`${variant} sheet button`)}
+          />
+          <NativeKitButton
+            title="Close"
+            variant="outlined"
+            onPress={closeSheet}
+          />
+        </NativeKitBottomSheet>
+      ))}
+
+      <NativeKitBottomSheet
+        visible={sheet === 'actionSheet'}
+        variant="actionSheet"
+        title="Photo options"
+        message="Choose what to do with this photo."
+        actions={SHEET_ACTIONS}
+        onActionPress={(_, action) => press(`action ${action.title}`)()}
+        onDismiss={closeSheet}
+      />
     </ScrollView>
   );
 }
@@ -192,6 +268,14 @@ const styles = StyleSheet.create({
   fixedWidth: {
     width: 180,
     alignSelf: 'center',
+  },
+  sheetContent: {
+    padding: 24,
+    gap: 12,
+  },
+  sheetTitle: {
+    fontSize: 20,
+    fontWeight: '700',
   },
   toggle: {
     flexDirection: 'row',

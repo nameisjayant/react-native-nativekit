@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
 import com.facebook.react.uimanager.ViewManager
+import com.nameisjayant.reactnativenativekit.bottomsheet.NativeKitBottomSheetManager
 import com.nameisjayant.reactnativenativekit.button.NativeKitButtonManager
 import com.nameisjayant.reactnativenativekit.view.NativekitViewManager
 
@@ -32,5 +33,5 @@ class ReactNativeNativekitPackage : BaseReactPackage() {
   }
 
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> =
-    listOf(NativekitViewManager(), NativeKitButtonManager())
+    listOf(NativekitViewManager(), NativeKitButtonManager(), NativeKitBottomSheetManager())
 }

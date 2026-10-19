@@ -346,6 +346,128 @@ Button(action: { if !model.loading { model.onPress?() } }) {
 
 ---
 
+### Bottom sheet
+
+```tsx
+import { NativeKitBottomSheet } from '@nameisjayant/react-native-nativekit';
+
+const [open, setOpen] = useState(false);
+
+<NativeKitButton title="Show sheet" onPress={() => setOpen(true)} />
+
+<NativeKitBottomSheet
+  visible={open}
+  variant="halfExpanded"
+  onDismiss={() => setOpen(false)}
+  style={{ padding: 24, gap: 12 }}
+>
+  <Text>Any React Native content</Text>
+  <NativeKitButton title="Close" onPress={() => setOpen(false)} />
+</NativeKitBottomSheet>
+```
+
+A real platform bottom sheet: **Material 3** sheets (Jetpack Compose) on Android and **UIKit sheets** (`UISheetPresentationController` / `UIAlertController`) on iOS. Your React Native `children` are rendered inside the native sheet, so you get native drag physics, detents, scrim, back handling and predictive back, while writing the content in React.
+
+The sheet is **controlled**: show it with `visible`, and set `visible` back to `false` in `onDismiss`, which fires whenever the user closes the sheet (swipe, scrim tap, back button, or an action-sheet row).
+
+#### Variants
+
+```tsx
+<NativeKitBottomSheet variant="modal" />         // sized to its content
+<NativeKitBottomSheet variant="halfExpanded" />  // opens at half height, drag up to expand
+<NativeKitBottomSheet variant="expanded" />      // opens at full height
+<NativeKitBottomSheet variant="fullScreen" />    // covers the whole screen
+<NativeKitBottomSheet variant="persistent" />    // non-modal, always on screen
+<NativeKitBottomSheet variant="expandable" />    // non-modal, peek / expand / swipe away
+<NativeKitBottomSheet variant="actionSheet" actions={[...]} />
+```
+
+| Variant | 🤖 Android (Compose M3) | 🍎 iOS (UIKit) |
+| ------- | ---------------------- | -------------- |
+| `modal` *(default)* | `ModalBottomSheet`, wraps content | Sheet with a content-fit custom detent (iOS 16+, `.large` on iOS 15) |
+| `halfExpanded` | `ModalBottomSheet` with `skipPartiallyExpanded = false`, opens half-expanded | Detents `[.medium, .large]`, opens at `.medium` |
+| `expanded` | `ModalBottomSheet`, full height | Detent `[.large]` |
+| `fullScreen` | Edge-to-edge `ModalBottomSheet`, square corners, no drag handle | `.fullScreen` modal presentation |
+| `persistent` | Standard sheet (`BottomSheetScaffold`), no scrim, can't be hidden by the user | Undimmed sheet, detents `[peek, content]`, `isModalInPresentation` |
+| `expandable` | Standard sheet: collapsed (peek) / expanded / swipe to hide | Undimmed sheet, detents `[peek, content]`, swipe to dismiss |
+| `actionSheet` | `ModalBottomSheet` with a Material list of actions | `UIAlertController` with `.actionSheet` style (popover on iPad) |
+
+`persistent` and `expandable` sheets don't block the screen: the app underneath stays scrollable and tappable.
+
+#### Action sheet
+
+```tsx
+<NativeKitBottomSheet
+  visible={open}
+  variant="actionSheet"
+  title="Photo options"
+  message="Choose what to do with this photo."
+  actions={[
+    { title: 'Share', onPress: share },
+    { title: 'Archive', disabled: true },
+    { title: 'Delete', role: 'destructive', onPress: remove },
+    { title: 'Cancel', role: 'cancel' },
+  ]}
+  onDismiss={() => setOpen(false)}
+/>
+```
+
+Choosing an action calls its `onPress` (and `onActionPress(index, action)`), then closes the sheet and fires `onDismiss`. `destructive` rows are red; the `cancel` row is separated from the others. iOS allows a single `cancel` action; extra ones are shown as regular rows.
+
+#### Customizing
+
+```tsx
+<NativeKitBottomSheet
+  visible={open}
+  variant="expandable"
+  peekHeight={160}            // collapsed height of persistent / expandable sheets
+  cornerRadius={28}
+  backgroundColor="#FFF8E1"
+  showDragHandle={false}
+  dismissible={false}         // no swipe / scrim / back dismissal
+  onStateChange={(state) => console.log(state)} // 'collapsed' | 'halfExpanded' | 'expanded' | 'hidden'
+  onDismiss={() => setOpen(false)}
+>
+  …
+</NativeKitBottomSheet>
+```
+
+#### Content sizing
+
+The content is laid out at the sheet's width. For `halfExpanded`, `expanded` and `fullScreen` it is stretched to the sheet's height, so `flex: 1` children (for example a `ScrollView`) fill the sheet. For the other variants the sheet wraps the content, capped at the tallest the sheet can get; give a long `ScrollView` `flexShrink: 1` so it scrolls instead of overflowing.
+
+#### Props
+
+| Prop | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `visible` | `boolean` | — | Whether the sheet is shown. **Required.** |
+| `variant` | `'modal' \| 'halfExpanded' \| 'expanded' \| 'fullScreen' \| 'persistent' \| 'expandable' \| 'actionSheet'` | `'modal'` | Presentation style. See [Variants](#variants-1). |
+| `dismissible` | `boolean` | `true` | Allow dismissing by swipe, scrim tap and back button. `persistent` is never user-dismissible. |
+| `showDragHandle` | `boolean` | `true` | Drag handle (Android) / grabber (iOS). Not shown by `fullScreen` and `actionSheet`. |
+| `cornerRadius` | `number` | platform | Top corner radius in dp/pt. |
+| `backgroundColor` | `ColorValue` | platform | Sheet background color. |
+| `peekHeight` | `number` | `120` | Collapsed height of `persistent` / `expandable` sheets (iOS 16+; `.medium` on iOS 15). |
+| `title` / `message` | `string` | — | `actionSheet` header. |
+| `actions` | `NativeKitBottomSheetAction[]` | — | `actionSheet` rows: `{ title, role?, disabled?, onPress? }`. |
+| `style` | `StyleProp<ViewStyle>` | — | Style of the view wrapping `children` inside the sheet. |
+| `onDismiss` | `() => void` | — | The user dismissed the sheet. Set `visible` to `false` here. |
+| `onStateChange` | `(state) => void` | — | The sheet settled at `'collapsed'`, `'halfExpanded'`, `'expanded'` or `'hidden'`. |
+| `onActionPress` | `(index, action) => void` | — | An `actionSheet` action was chosen. |
+
+#### TypeScript
+
+```ts
+import type {
+  NativeKitBottomSheetProps,
+  NativeKitBottomSheetVariant,
+  NativeKitBottomSheetState,
+  NativeKitBottomSheetAction,
+  NativeKitBottomSheetActionRole,
+} from '@nameisjayant/react-native-nativekit';
+```
+
+---
+
 ## Other APIs
 
 ```js
