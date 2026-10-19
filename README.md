@@ -1,16 +1,46 @@
 <div align="center">
 
-# @nameisjayant/react-native-nativekit
+<a href="https://nameisjayant.github.io/react-native-nativekit/">
+  <img src="https://raw.githubusercontent.com/nameisjayant/react-native-nativekit/main/docs/public/logo.svg" alt="NativeKit logo" width="96" height="96" />
+</a>
 
-**Truly native UI components for React Native.**
-Jetpack Compose on Android · SwiftUI on iOS · Built for the New Architecture
+<h1>React Native NativeKit</h1>
 
-[![npm version](https://img.shields.io/npm/v/@nameisjayant/react-native-nativekit.svg?style=flat-square)](https://www.npmjs.com/package/@nameisjayant/react-native-nativekit)
-[![license](https://img.shields.io/npm/l/@nameisjayant/react-native-nativekit.svg?style=flat-square)](LICENSE)
-![platforms](https://img.shields.io/badge/platforms-android%20%7C%20ios-blue.svg?style=flat-square)
-![new architecture](https://img.shields.io/badge/new%20architecture-required-success.svg?style=flat-square)
+<p><b>Native UI that feels at home.</b></p>
+
+<p>
+  Truly native UI components for React Native.<br />
+  <sub>Jetpack Compose on Android &nbsp;·&nbsp; SwiftUI on iOS &nbsp;·&nbsp; Built for the New Architecture</sub>
+</p>
+
+<p>
+  <a href="https://www.npmjs.com/package/@nameisjayant/react-native-nativekit"><img src="https://img.shields.io/npm/v/@nameisjayant/react-native-nativekit.svg?style=flat-square&color=059669&label=npm" alt="npm version" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/npm/l/@nameisjayant/react-native-nativekit.svg?style=flat-square&color=0f766e" alt="license" /></a>
+  <img src="https://img.shields.io/badge/platforms-android%20%7C%20ios-059669.svg?style=flat-square" alt="platforms" />
+  <img src="https://img.shields.io/badge/new%20architecture-required-0f766e.svg?style=flat-square" alt="new architecture" />
+  <a href="https://nameisjayant.github.io/react-native-nativekit/"><img src="https://img.shields.io/badge/docs-website-047857.svg?style=flat-square" alt="documentation" /></a>
+</p>
+
+<p>
+  <a href="https://nameisjayant.github.io/react-native-nativekit/"><b>Website</b></a> &nbsp;·&nbsp;
+  <a href="https://nameisjayant.github.io/react-native-nativekit/docs/"><b>Getting started</b></a> &nbsp;·&nbsp;
+  <a href="https://nameisjayant.github.io/react-native-nativekit/docs/button/"><b>Button</b></a> &nbsp;·&nbsp;
+  <a href="https://nameisjayant.github.io/react-native-nativekit/docs/bottom-sheet/"><b>Bottom sheet</b></a>
+</p>
 
 </div>
+
+---
+
+## Documentation
+
+The full documentation, with every component, variant and code snippet, lives at **[nameisjayant.github.io/react-native-nativekit](https://nameisjayant.github.io/react-native-nativekit/)**.
+
+| Page | What's inside |
+| ---- | ------------- |
+| [Getting started](https://nameisjayant.github.io/react-native-nativekit/docs/) | Installation, requirements, basic usage and how it works |
+| [Button](https://nameisjayant.github.io/react-native-nativekit/docs/button/) | Variants, sizes, colors, loading, Liquid Glass, props and platform mapping |
+| [Bottom sheet](https://nameisjayant.github.io/react-native-nativekit/docs/bottom-sheet/) | Variants, action sheet, customizing, content sizing and props |
 
 ---
 
@@ -490,6 +520,14 @@ Run the example app:
 yarn            # install dependencies
 yarn android    # run the example on Android
 yarn ios        # run the example on iOS
+```
+
+Run the documentation website (Next.js, in [`docs/`](docs); not part of the npm package):
+
+```sh
+cd docs
+npm install     # install dependencies (first time only)
+npm run dev     # http://localhost:3000
 ```
 
 ## License

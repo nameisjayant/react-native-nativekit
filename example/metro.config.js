@@ -16,4 +16,11 @@ const config = withMetroConfig(getDefaultConfig(__dirname), {
   conditions: ['nameisjayant-react-native-nativekit-source'],
 });
 
+// The docs website (Next.js, with its own node_modules) lives in the repo but is not part of the app.
+const docsDir = path.join(root, 'docs').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+config.resolver.blockList = [
+  ...[config.resolver.blockList ?? []].flat(),
+  new RegExp(`^${docsDir}[/\\\\]`),
+];
+
 module.exports = config;

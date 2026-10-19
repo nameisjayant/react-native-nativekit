@@ -144,7 +144,8 @@
     },
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
-      "<rootDir>/lib/"
+      "<rootDir>/lib/",
+      "<rootDir>/docs/"
     ]
   },
   "create-react-native-library": {
