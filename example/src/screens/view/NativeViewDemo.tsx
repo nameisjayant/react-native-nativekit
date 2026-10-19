@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { multiply, NativekitView } from '@nameisjayant/react-native-nativekit';
-import { Body, Screen, Section } from '../components/Layout';
+import { Body, Screen, Section } from '../../components/Layout';
 
 const result = multiply(3, 7);
 

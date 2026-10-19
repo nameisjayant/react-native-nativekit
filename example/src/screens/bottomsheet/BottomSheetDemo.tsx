@@ -6,7 +6,7 @@ import {
   type NativeKitBottomSheetAction,
   type NativeKitBottomSheetVariant,
 } from '@nameisjayant/react-native-nativekit';
-import { Body, Screen, Section, Status } from '../components/Layout';
+import { Body, Screen, Section, Status } from '../../components/Layout';
 
 const SHEET_VARIANTS: NativeKitBottomSheetVariant[] = [
   'modal',

@@ -5,7 +5,7 @@ import {
   type NativeKitButtonSize,
   type NativeKitButtonVariant,
 } from '@nameisjayant/react-native-nativekit';
-import { Screen, Section, Status, Toggle } from '../components/Layout';
+import { Screen, Section, Status, Toggle } from '../../components/Layout';
 
 const VARIANTS: NativeKitButtonVariant[] = [
   'filled',

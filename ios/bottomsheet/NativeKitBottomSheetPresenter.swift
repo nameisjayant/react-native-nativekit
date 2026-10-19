@@ -1,4 +1,4 @@
-clearimport UIKit
+import UIKit
 
 /// Presents the React content of a `NativeKitBottomSheet` with UIKit's sheet APIs
 /// (`UISheetPresentationController`, `UIAlertController` for action sheets).

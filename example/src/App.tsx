@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { BackHandler } from 'react-native';
 import HomeScreen, { type DemoRoute } from './screens/HomeScreen';
-import ButtonDemo from './screens/ButtonDemo';
-import BottomSheetDemo from './screens/BottomSheetDemo';
-import NativeViewDemo from './screens/NativeViewDemo';
+import ButtonDemo from './screens/button/ButtonDemo';
+import BottomSheetDemo from './screens/bottomsheet/BottomSheetDemo';
+import NativeViewDemo from './screens/view/NativeViewDemo';
 
 export default function App() {
   const [route, setRoute] = useState<DemoRoute | null>(null);
