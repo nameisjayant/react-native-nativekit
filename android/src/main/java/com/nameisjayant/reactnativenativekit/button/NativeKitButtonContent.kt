@@ -1,6 +1,7 @@
 package com.nameisjayant.reactnativenativekit.button
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,8 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -45,7 +48,8 @@ internal data class NativeKitButtonState(
 
 @Composable
 internal fun NativeKitButtonContent(state: NativeKitButtonState, onPress: () -> Unit) {
-  MaterialTheme {
+  val colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
+  MaterialTheme(colorScheme = colorScheme) {
     val accent = state.color?.let(::Color) ?: Color.Unspecified
     val content = state.textColor?.let(::Color) ?: Color.Unspecified
     val enabled = !state.disabled
